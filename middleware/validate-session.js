@@ -1,0 +1,1 @@
+//what makes the token and sends it back. React app stores that component for you to use again.
