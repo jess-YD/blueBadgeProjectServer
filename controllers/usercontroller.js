@@ -9,17 +9,19 @@ let jwt = require("jsonwebtoken");
 
 
 /** Register ***/
-router.post("/create", function (req, res) {
+router.post("/create", function (req, res) { //ok to receive a post request
     let username = req.body.user.username;
     let password = req.body.user.password;
+    //console.log(req.body)
     User.create({
         username: username,
-        passwordhash: bcrypt.hashSync(password, 10)  //this means you will do 10 rounds of bycrpt.
+        passwordhash: bcrypt.hashSync(password, 10),  //this means you will do 10 rounds of bycrpt.
     }).then(
         function createSuccess(user) {
             let token = jwt.sign({ id: user.id }, process.env.JWT_SECRET)
             res.json({
                 user: user,
+                token: token,
                 message: "Hello, there!",
             })
         },
